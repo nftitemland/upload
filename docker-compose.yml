@@ -1,0 +1,11 @@
+services:
+  upload:
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - ./images:/data
+    # Default: uploads built-in green square. Override as needed:
+    # command: ["--command", "upload", "--file", "/data/image.png"]
+    # command: ["--command", "inspect"]
+    # command: ["--get-nft", "93"]
