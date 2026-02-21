@@ -36,3 +36,11 @@ jobs:
           tags: |
             nftitem/upload:${{ env.tag }}
             nftitem/upload:latest
+
+      - name: Update Docker Hub Description
+        uses: peter-evans/dockerhub-description@v4
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+          repository: nftitem/upload
+          readme-filepath: ./README.md
