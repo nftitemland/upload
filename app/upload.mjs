@@ -53,12 +53,15 @@ if (argv.env) {
 const API_BASE = "https://api.nftitem.io";
 const UPLOAD_PATH = "/upload";
 
+function stripQuotes(s) {
+  return s.trim().replace(/^["']|["']$/g, "");
+}
+
 function getUploadSigner() {
   let privateKey = process.env.X402_PRIVATE_KEY || process.env.PRIVATE_KEY;
   if (privateKey && typeof privateKey === "string" && privateKey.trim()) {
-    const hexKey = privateKey.trim().startsWith("0x")
-      ? privateKey.trim()
-      : `0x${privateKey.trim()}`;
+    const cleaned = stripQuotes(privateKey);
+    const hexKey = cleaned.startsWith("0x") ? cleaned : `0x${cleaned}`;
     return privateKeyToAccount(hexKey);
   }
   const mnemonic = process.env.X402_MNEMONIC;
