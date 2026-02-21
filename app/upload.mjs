@@ -54,7 +54,7 @@ const API_BASE = "https://api.nftitem.io";
 const UPLOAD_PATH = "/upload";
 
 function getUploadSigner() {
-  let privateKey = process.env.X402_PRIVATE_KEY;
+  let privateKey = process.env.X402_PRIVATE_KEY || process.env.PRIVATE_KEY;
   if (privateKey && typeof privateKey === "string" && privateKey.trim()) {
     const hexKey = privateKey.trim().startsWith("0x")
       ? privateKey.trim()
@@ -66,7 +66,7 @@ function getUploadSigner() {
     return mnemonicToAccount(mnemonic.trim());
   }
   throw new Error(
-    "UPLOAD requires X402_PRIVATE_KEY or X402_MNEMONIC in env or .env file"
+    "UPLOAD requires X402_PRIVATE_KEY, PRIVATE_KEY, or X402_MNEMONIC in env or .env file"
   );
 }
 
